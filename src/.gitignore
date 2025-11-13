@@ -1,0 +1,65 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Environments ---
+.venv/
+venv/
+env/
+ENV/
+.ipynb_checkpoints/
+
+# --- Jupyter Notebook ---
+*.ipynb_checkpoints
+*.ipynb_save
+*.nbconvert.ipynb
+
+# --- VSCode ---
+.vscode/
+.history/
+
+# --- macOS ---
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# --- Logs ---
+*.log
+logs/
+nohup.out
+
+# --- Model / Data files ---
+*.h5
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.tflite
+*.joblib
+*.pkl
+*.npy
+*.npz
+*.csv
+*.tsv
+*.parquet
+data/
+datasets/
+checkpoints/
+runs/
+output/
+weights/
+results/
+
+# --- Credentials ---
+*.env
+.env
+config.json
+secrets.json
+api_keys.json
+
+# --- Temporary ---
+tmp/
+temp/
+*.bak
+*.swp

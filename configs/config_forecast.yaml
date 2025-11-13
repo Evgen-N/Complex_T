@@ -1,0 +1,19 @@
+data:
+  path: "data/predict.csv"
+  window_size: 21
+
+predict:
+  batch_size: 64
+  window_size: 21
+  checkpoint_path_real: "checkpoints/finetuned_real_net.pth"
+  checkpoint_path_complex: "checkpoints/finetuned_complex_net.pth"
+  checkpoint_path_fusion: "checkpoints/finetuned_fusion_net.pth"
+
+model:
+  num_real_features: 3
+  real_hidden_dim: 96
+  complex_hidden_dim: 64
+  dropout: 0.0
+  n_res_blocks: 1
+  seq_len: 21
+  out_dim: 1

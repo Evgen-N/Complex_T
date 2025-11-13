@@ -1,0 +1,6 @@
+data:
+  path: "data/finetune.csv"
+  window_size: 21
+
+train:
+  batch_size: 32

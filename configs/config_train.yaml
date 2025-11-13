@@ -1,0 +1,17 @@
+data:
+  path: "data/train.csv"
+  window_size: 21
+
+train:
+  batch_size: 64
+  lr: 0.003
+  epochs: 50
+
+model:
+  num_real_features: 16
+  real_hidden_dim: 96
+  complex_hidden_dim: 64
+  dropout: 0.3
+  n_res_blocks: 3
+  seq_len: 21
+  out_dim: 1

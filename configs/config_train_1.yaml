@@ -1,0 +1,80 @@
+
+  seed: 42
+  data:
+    start_preds_date: "2025-09-29"
+    stop_preds_date: "2025-10-09"
+    time_shift: 1
+    window_size: 21
+    cols_to_scale: [
+       'open', 'high', 'low', 'close', 'DayAvgPrice', 'IntradayStd',
+       'Volume', 'day_of_week', 'day_of_year', 'Log_Profit',
+       'DayAvgPrice_diff', 'DayAvgPrice_2diff', 'POLY_1', 'POLY_2', 'POLY_3',
+       'parkinson_vol', 'parkinson_vol_ma5',
+       'parkinson_vol_ma20', 'parkinson_vol_diff1', 'parkinson_vol_lag1',
+       'DAP_1', 'DAP_2', 'DAP_3', 'DAP_4', 'DAP_5', 'DAP_6', 'DAP_7', 'DAP_10',
+       'DayAvgPrice_roll5', 'DayAvgPrice_roll10', 'DayAvgPrice_roll20',
+       'DayAvgPrice_ema5', 'DayAvgPrice_ema20', 'IntradayStd_roll5',
+       'IntradayStd_roll10', 'IntradayStd_roll20', 'IntradayStd_ema5',
+       'IntradayStd_ema20', 'mean_w', 'std_w',
+       'q10_w', 'q90_w', 'slope_w', 'vol_w', 'macd', 'macd_signal', 'macd_hist',
+       'bb_low', 'bb_mid', 'bb_up', 'atr14', 'dphi_hilbert',
+       'stft_energy_low', 'stft_energy_mid', 'stft_energy_high',
+       'gk_sigma', 'rs_sigma', 'yz_sigma', 'adx', 'chop', 'kalm_slope', 'rv20', 'vol_of_vol',
+       'bb_pct_b', 'bb_bandwidth', 'ret_overnight', 'ret_intraday', 'corr_ret_dlogvol'
+       ]
+    real_cols: [
+       'date', 'open', 'high', 'low', 'close', 'DayAvgPrice', 'IntradayStd',
+       'Volume', 'day_of_week', 'day_of_year', 'Log_Profit',
+       'DayAvgPrice_diff', 'DayAvgPrice_2diff', 'POLY_1', 'POLY_2', 'POLY_3',
+       'real_time', 'imag_time', 'c_week_real', 'c_week_imag', 'c_month_real',
+       'c_month_imag', 'c_quarter_real', 'c_quarter_imag', 'c_year_real',
+       'c_year_imag', 'parkinson_vol', 'parkinson_vol_ma5',
+       'parkinson_vol_ma20', 'parkinson_vol_diff1', 'parkinson_vol_lag1',
+       'DayAvgPrice_roll5', 'DayAvgPrice_roll10', 'DayAvgPrice_roll20',
+       'DayAvgPrice_ema5', 'DayAvgPrice_ema20', 'IntradayStd_roll5',
+       'IntradayStd_roll10', 'IntradayStd_roll20', 'IntradayStd_ema5',
+       'IntradayStd_ema20', 'log_ret_1', 'DAP_1', 'DAP_2', 'log_ret_2',
+       'DAP_3', 'log_ret_3', 'DAP_4', 'log_ret_4', 'DAP_5',
+       'log_ret_5', 'DAP_6', 'log_ret_6', 'DAP_7', 'log_ret_7', 'DAP_10',
+       'log_ret_10', 'mean_w', 'std_w', 'z_w', 'q10_w', 'q90_w', 'slope_w',
+       'vol_w', 'vol_z', 'dow_sin', 'dow_cos', 'moy_sin', 'moy_cos', 'rsi14',
+       'macd', 'macd_signal', 'macd_hist', 'bb_low', 'bb_mid', 'bb_up',
+       'atr14', 'phi_hilbert', 'dphi_hilbert', 'stft_energy_low',
+       'stft_energy_mid', 'stft_energy_high', 'ret', 'ret_overnight',
+       'ret_intraday', 'gk_sigma', 'rs_sigma', 'yz_sigma', 'adx', 'di_plus',
+       'di_minus', 'chop', 'kalm_slope', 'rv20', 'vol_of_vol', 'bb_pct_b',
+       'bb_bandwidth', 'corr_ret_dlogvol', 'lambda_C3', 'lambda_C2',
+       'lambda_C1', 'lambda_T3', 'lambda_T2', 'lambda_T1', 'Target',
+       'Target_smooth'
+       ]
+    feature_control:
+      include: []
+      exclude: ["parkinson_vol"]              # исключим конкретную
+      include_regex: []   #   ["^vol_"]                # включим всё, что начинается на vol_
+      exclude_regex: []   # ["ema\\d+$"]             # выкинем ema5/ema20/...
+      include_groups: []  # ["tech"]
+      exclude_groups: []  # ["stft"]
+      groups:
+        tech: ["rsi14","macd","macd_signal","macd_hist","atr14","bb_low","bb_mid","bb_up"]
+        stft: ["stft_energy_low","stft_energy_mid","stft_energy_high"]
+
+  model:
+    real_hidden_dim: 96
+    complex_hidden_dim: 64
+    n_res_blocks: 2
+    dropout: 0.4
+    bidirectional: True
+    take: "last_timestep"
+    real_lstm_layers: 2
+
+  train:
+    lr: 0.001
+    epochs: 5
+    batch_size: 64
+    accum_steps: 1
+    max_grad_norm: 1.0
+    min_bs_for_bn: 2
+    early_stop_patience: 100
+    early_stop_min_delta: 1e-2
+    ema_beta: 0.8
+    reset_each_fold: True

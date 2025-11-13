@@ -1,0 +1,20 @@
+data:
+  path: "data/finetune.csv"
+  window_size: 21
+
+fine_tune:
+  batch_size: 64
+  lr: 0.001
+  epochs: 188
+  checkpoint_path_real: "checkpoints/trained_real_net.pth"
+  checkpoint_path_complex: "checkpoints/trained_complex_net.pth"
+  checkpoint_path_fusion: "checkpoints/trained_fusion_net.pth"
+
+model:
+  num_real_features: 22
+  real_hidden_dim: 96
+  complex_hidden_dim: 64
+  dropout: 0.3
+  n_res_blocks: 3
+  seq_len: 21
+  out_dim: 1
